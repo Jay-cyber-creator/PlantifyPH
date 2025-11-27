@@ -1,0 +1,556 @@
+{
+  "cart": {
+    "PRqM7nsgncZUJGciqvTreYyFhmu2": {
+      "plant1": {
+        "addedAt": 1764240189260,
+        "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+        "name": "Monstera Deliciosa",
+        "plantId": "plant1",
+        "price": 850,
+        "quantity": 1,
+        "updatedAt": 1764240189260
+      }
+    }
+  },
+  "categories": {
+    "category1": {
+      "description": "Perfect for your home or office",
+      "icon": "fas fa-seedling",
+      "name": "Indoor Plants"
+    },
+    "category2": {
+      "description": "Beautiful additions to your garden",
+      "icon": "fas fa-tree",
+      "name": "Outdoor Plants"
+    },
+    "category3": {
+      "description": "Low maintenance and stylish",
+      "icon": "fas fa-spa",
+      "name": "Succulents"
+    },
+    "category4": {
+      "description": "Clean your air naturally",
+      "icon": "fas fa-tint",
+      "name": "Air Purifying"
+    }
+  },
+  "delivery": {
+    "areas": ["Metro Manila", "Luzon", "Visayas", "Mindanao"],
+    "enabled": true,
+    "fee": 100,
+    "freeThreshold": 1500,
+    "processingTime": "1-2 business days"
+  },
+  "orders": {
+    "order_1764231659809": {
+      "createdAt": 1764231659809,
+      "customer": {
+        "deliveryMethod": "pickup",
+        "email": "ibanezjayniel913@gmail.com",
+        "firstName": "jay",
+        "lastName": "ibanez",
+        "paymentMethod": "cod",
+        "phone": "09097144018",
+        "pickupDate": "2024-01-16",
+        "pickupTimeSlot": "9:00 AM - 10:00 AM",
+        "pickupTimeSlotId": "slot7"
+      },
+      "deliveryMethod": "pickup",
+      "items": {
+        "plant1": {
+          "addedAt": 1764231562751,
+          "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+          "name": "Monstera Deliciosa",
+          "plantId": "plant1",
+          "price": 850,
+          "quantity": 1,
+          "updatedAt": 1764231562751
+        },
+        "plant3": {
+          "addedAt": 1764231430340,
+          "image": "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+          "name": "Fiddle Leaf Fig",
+          "plantId": "plant3",
+          "price": 1200,
+          "quantity": 3,
+          "updatedAt": 1764231430925
+        }
+      },
+      "orderNumber": "order_1764231659809",
+      "paymentMethod": "cod",
+      "shipping": 0,
+      "status": "pending",
+      "subtotal": 4450,
+      "total": 4450,
+      "userId": "user_1764225136677_wisqlsn9z"
+    },
+    "order_1764231699009": {
+      "createdAt": 1764231699009,
+      "customer": {
+        "deliveryMethod": "pickup",
+        "email": "ibanezjayniel913@gmail.com",
+        "firstName": "jay",
+        "lastName": "ibanez",
+        "paymentMethod": "cod",
+        "phone": "09097144018",
+        "pickupDate": "2024-01-15",
+        "pickupTimeSlot": "1:00 PM - 2:00 PM",
+        "pickupTimeSlotId": "slot4"
+      },
+      "deliveryMethod": "pickup",
+      "items": {
+        "plant9": {
+          "addedAt": 1764231668044,
+          "image": "https://images.unsplash.com/photo-1598881246373-f3fcad40b59b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+          "name": "Rubber Plant",
+          "plantId": "plant9",
+          "price": 950,
+          "quantity": 1,
+          "updatedAt": 1764231668044
+        }
+      },
+      "orderNumber": "order_1764231699009",
+      "paymentMethod": "cod",
+      "shipping": 0,
+      "status": "pending",
+      "subtotal": 950,
+      "total": 950,
+      "userId": "user_1764225136677_wisqlsn9z"
+    },
+    "order_1764232518697": {
+      "createdAt": 1764232518697,
+      "customer": {
+        "deliveryMethod": "pickup",
+        "email": "ibanezjayniel913@gmail.com",
+        "firstName": "jay",
+        "lastName": "ibanez",
+        "paymentMethod": "cod",
+        "phone": "09097144018",
+        "pickupDate": "2024-01-15",
+        "pickupTimeSlot": "10:00 AM - 11:00 AM",
+        "pickupTimeSlotId": "slot2"
+      },
+      "deliveryMethod": "pickup",
+      "items": {
+        "plant2": {
+          "addedAt": 1764232445218,
+          "image": "https://images.unsplash.com/photo-1598880940083-de431d4e1c6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+          "name": "Snake Plant",
+          "plantId": "plant2",
+          "price": 650,
+          "quantity": 2,
+          "updatedAt": 1764232445247
+        },
+        "plant6": {
+          "addedAt": 1764232454345,
+          "image": "https://images.unsplash.com/photo-1595871805555-1cf51ae56b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+          "name": "Bougainvillea",
+          "plantId": "plant6",
+          "price": 450,
+          "quantity": 2,
+          "updatedAt": 1764232454349
+        }
+      },
+      "orderNumber": "ORD1764232518697",
+      "paymentMethod": "cod",
+      "shipping": 0,
+      "status": "pending",
+      "subtotal": 2200,
+      "total": 2200,
+      "userId": "user_1764225136677_wisqlsn9z"
+    },
+    "order_1764234819441": {
+      "createdAt": 1764234819441,
+      "customer": {
+        "deliveryMethod": "pickup",
+        "email": "ibanezjayniel913@gmail.com",
+        "firstName": "jay",
+        "lastName": "ibanez",
+        "paymentMethod": "cod",
+        "phone": "09097144018",
+        "pickupDate": "2024-01-15",
+        "pickupTimeSlot": "10:00 AM - 11:00 AM",
+        "pickupTimeSlotId": "slot2"
+      },
+      "deliveryMethod": "pickup",
+      "items": {
+        "plant5": {
+          "addedAt": 1764234762401,
+          "image": "https://images.unsplash.com/photo-1593483316242-efb5420596ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+          "name": "Peace Lily",
+          "plantId": "plant5",
+          "price": 750,
+          "quantity": 1,
+          "updatedAt": 1764234762401
+        }
+      },
+      "orderNumber": "ORD1764234819441",
+      "paymentMethod": "cod",
+      "shipping": 0,
+      "status": "pending",
+      "subtotal": 750,
+      "total": 750,
+      "userId": "user_1764225136677_wisqlsn9z"
+    },
+    "order_1764239494080": {
+      "createdAt": 1764239494080,
+      "customer": {
+        "address": "Victorias city, Negros occidental ",
+        "city": "victorias",
+        "deliveryMethod": "delivery",
+        "email": "ibanezjayniel913@gmail.com",
+        "firstName": "jay",
+        "lastName": "ibanez",
+        "paymentMethod": "cod",
+        "phone": "09097144018",
+        "province": "negross",
+        "zipCode": "6119"
+      },
+      "deliveryMethod": "delivery",
+      "items": {
+        "plant1": {
+          "addedAt": 1764239469915,
+          "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+          "name": "Monstera Deliciosa",
+          "plantId": "plant1",
+          "price": 850,
+          "quantity": 1,
+          "updatedAt": 1764239469915
+        }
+      },
+      "orderNumber": "ORD1764239494080",
+      "paymentMethod": "cod",
+      "shipping": 100,
+      "status": "pending",
+      "subtotal": 850,
+      "total": 950,
+      "userId": "WgqAVbd0sxYZGHVhPgAUaeptUb72"
+    },
+    "order_1764241591265": {
+      "createdAt": 1764241591265,
+      "customer": {
+        "deliveryMethod": "pickup",
+        "email": "ibanezjayniel913@gmail.com",
+        "firstName": "jay",
+        "lastName": "ibanez",
+        "paymentMethod": "cod",
+        "phone": "09097144018",
+        "pickupDate": "2024-01-16",
+        "pickupTimeSlot": "11:00 AM - 12:00 PM",
+        "pickupTimeSlotId": "slot9"
+      },
+      "deliveryMethod": "pickup",
+      "items": {
+        "plant3": {
+          "addedAt": 1764241558679,
+          "image": "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+          "name": "Fiddle Leaf Fig",
+          "plantId": "plant3",
+          "price": 1200,
+          "quantity": 1,
+          "updatedAt": 1764241558679
+        }
+      },
+      "orderNumber": "ORD1764241591265",
+      "paymentMethod": "cod",
+      "shipping": 0,
+      "status": "pending",
+      "statusHistory": [
+        {
+          "note": "Order placed successfully",
+          "status": "pending",
+          "timestamp": 1764241591265
+        }
+      ],
+      "subtotal": 1200,
+      "total": 1200,
+      "userId": "WgqAVbd0sxYZGHVhPgAUaeptUb72"
+    }
+  },
+  "plants": {
+    "plant1": {
+      "category": "category1",
+      "description": "Also known as the Swiss Cheese Plant, with beautiful split leaves.",
+      "featured": true,
+      "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+      "name": "Monstera Deliciosa",
+      "price": 850,
+      "stock": 12
+    },
+    "plant10": {
+      "category": "category4",
+      "description": "Beautiful hanging plant that purifies the air.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1598881246316-60a9ac379b33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Boston Fern",
+      "price": 550,
+      "stock": 14
+    },
+    "plant2": {
+      "category": "category1",
+      "description": "Extremely hardy and perfect for beginners. Purifies indoor air.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1598880940083-de431d4e1c6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Snake Plant",
+      "price": 650,
+      "stock": 18
+    },
+    "plant3": {
+      "category": "category1",
+      "description": "A popular indoor tree with large, glossy green leaves.",
+      "featured": true,
+      "image": "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Fiddle Leaf Fig",
+      "price": 1200,
+      "stock": 4
+    },
+    "plant4": {
+      "category": "category3",
+      "description": "Medicinal plant that's easy to care for and has healing properties.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1596541223130-5d31a73fb6c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      "name": "Aloe Vera",
+      "price": 350,
+      "stock": 25
+    },
+    "plant5": {
+      "category": "category4",
+      "description": "Beautiful flowering plant that helps purify the air in your home.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1593483316242-efb5420596ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Peace Lily",
+      "price": 750,
+      "stock": 12
+    },
+    "plant6": {
+      "category": "category2",
+      "description": "Vibrant flowering plant perfect for Philippine gardens.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1595871805555-1cf51ae56b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+      "name": "Bougainvillea",
+      "price": 450,
+      "stock": 17
+    },
+    "plant7": {
+      "category": "category1",
+      "description": "Easy to grow and produces baby spider plants.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1596464716127-f2a82984de30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Spider Plant",
+      "price": 400,
+      "stock": 22
+    },
+    "plant8": {
+      "category": "category3",
+      "description": "Beautiful succulent that symbolizes good luck.",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-159888133616-13b9d49a95c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Jade Plant",
+      "price": 280,
+      "stock": 30
+    },
+    "plant9": {
+      "category": "category1",
+      "description": "Sturdy plant with large, glossy leaves.",
+      "featured": true,
+      "image": "https://images.unsplash.com/photo-1598881246373-f3fcad40b59b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "name": "Rubber Plant",
+      "price": 950,
+      "stock": 9
+    }
+  },
+  "store": {
+    "address": "123 Plant Street, Green City, Metro Manila",
+    "email": "hello@greenleaf.com",
+    "hours": {
+      "saturday": "9:00 AM - 6:00 PM",
+      "sunday": "Closed",
+      "weekdays": "9:00 AM - 6:00 PM"
+    },
+    "name": "GreenLeaf Plant Store",
+    "phone": "+63 912 345 6789",
+    "pickupInfo": {
+      "available": true,
+      "instructions": "Please bring your order ID and a valid ID for verification when picking up your order.",
+      "processingTime": "1-2 hours",
+      "timeSlots": [
+        {
+          "available": true,
+          "currentOrders": 2,
+          "date": "2024-01-15",
+          "id": "slot1",
+          "maxOrders": 5,
+          "time": "9:00 AM - 10:00 AM"
+        },
+        {
+          "available": true,
+          "currentOrders": 1,
+          "date": "2024-01-15",
+          "id": "slot2",
+          "maxOrders": 5,
+          "time": "10:00 AM - 11:00 AM"
+        },
+        {
+          "available": true,
+          "currentOrders": 0,
+          "date": "2024-01-15",
+          "id": "slot3",
+          "maxOrders": 5,
+          "time": "11:00 AM - 12:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 4,
+          "date": "2024-01-15",
+          "id": "slot4",
+          "maxOrders": 5,
+          "time": "1:00 PM - 2:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 4,
+          "date": "2024-01-15",
+          "id": "slot5",
+          "maxOrders": 5,
+          "time": "2:00 PM - 3:00 PM"
+        },
+        {
+          "available": false,
+          "currentOrders": 5,
+          "date": "2024-01-15",
+          "id": "slot6",
+          "maxOrders": 5,
+          "time": "3:00 PM - 4:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 1,
+          "date": "2024-01-16",
+          "id": "slot7",
+          "maxOrders": 5,
+          "time": "9:00 AM - 10:00 AM"
+        },
+        {
+          "available": true,
+          "currentOrders": 1,
+          "date": "2024-01-16",
+          "id": "slot8",
+          "maxOrders": 5,
+          "time": "10:00 AM - 11:00 AM"
+        },
+        {
+          "available": true,
+          "currentOrders": 0,
+          "date": "2024-01-16",
+          "id": "slot9",
+          "maxOrders": 5,
+          "time": "11:00 AM - 12:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 2,
+          "date": "2024-01-16",
+          "id": "slot10",
+          "maxOrders": 5,
+          "time": "1:00 PM - 2:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 1,
+          "date": "2024-01-16",
+          "id": "slot11",
+          "maxOrders": 5,
+          "time": "2:00 PM - 3:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 0,
+          "date": "2024-01-16",
+          "id": "slot12",
+          "maxOrders": 5,
+          "time": "3:00 PM - 4:00 PM"
+        },
+        {
+          "available": true,
+          "currentOrders": 0,
+          "date": "2024-01-17",
+          "id": "slot13",
+          "maxOrders": 5,
+          "time": "9:00 AM - 10:00 AM"
+        },
+        {
+          "available": true,
+          "currentOrders": 0,
+          "date": "2024-01-17",
+          "id": "slot14",
+          "maxOrders": 5,
+          "time": "10:00 AM - 11:00 AM"
+        },
+        {
+          "available": true,
+          "currentOrders": 0,
+          "date": "2024-01-17",
+          "id": "slot15",
+          "maxOrders": 5,
+          "time": "11:00 AM - 12:00 PM"
+        }
+      ]
+    }
+  },
+  "users": {
+    "PRqM7nsgncZUJGciqvTreYyFhmu2": {
+      "createdAt": 1764240188984,
+      "email": "jovieann@gmail.com",
+      "firstName": "jovieann",
+      "lastName": "gabredo",
+      "role": "customer"
+    },
+    "WgqAVbd0sxYZGHVhPgAUaeptUb72": {
+      "createdAt": 1764239469000,
+      "email": "ibanezjayniel913@gmail.com",
+      "firstName": "jay",
+      "lastName": "ibanez",
+      "role": "customer"
+    }
+  },
+  "wishlist": {
+    "WgqAVbd0sxYZGHVhPgAUaeptUb72": {
+      "plant1": {
+        "addedAt": 1764240000000,
+        "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+        "name": "Monstera Deliciosa",
+        "plantId": "plant1",
+        "price": 850
+      },
+      "plant3": {
+        "addedAt": 1764240001000,
+        "image": "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "name": "Fiddle Leaf Fig",
+        "plantId": "plant3",
+        "price": 1200
+      }
+    }
+  },
+  "addresses": {
+    "WgqAVbd0sxYZGHVhPgAUaeptUb72": {
+      "addr_1764240000000": {
+        "label": "Home",
+        "street": "123 Main Street",
+        "city": "Manila",
+        "province": "Metro Manila",
+        "zipCode": "1000",
+        "default": true,
+        "createdAt": 1764240000000
+      },
+      "addr_1764240001000": {
+        "label": "Office",
+        "street": "456 Business Avenue",
+        "city": "Makati",
+        "province": "Metro Manila",
+        "zipCode": "1200",
+        "default": false,
+        "createdAt": 1764240001000
+      }
+    }
+  }
+}
