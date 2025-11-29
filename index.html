@@ -14,6 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
     <style>
+      /* Previous styles remain the same */
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
       body {
         font-family: "Poppins", sans-serif;
@@ -252,6 +253,31 @@
       .notification.info {
         background-color: #3b82f6;
       }
+
+      /* New styles for search results with wishlist buttons */
+      .search-result-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      .wishlist-small-btn {
+        background: transparent;
+        border: 1px solid #dc2626;
+        color: #dc2626;
+        border-radius: 0.25rem;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.75rem;
+      }
+      .wishlist-small-btn:hover {
+        background-color: #dc2626;
+        color: white;
+      }
+      .wishlist-small-btn.active {
+        background-color: #dc2626;
+        color: white;
+      }
     </style>
   </head>
   <body class="bg-green-50">
@@ -295,35 +321,75 @@
 
         <div class="flex items-center space-x-4">
           <div class="relative">
-            <button id="open-search-btn" class="text-gray-600 hover:text-green-600 transition">
+            <button
+              id="open-search-btn"
+              class="text-gray-600 hover:text-green-600 transition"
+            >
               <i class="fas fa-search text-xl"></i>
             </button>
             <!-- Inline search for md+ screens -->
-            <div id="search-wrapper" class="absolute right-0 mt-2 hidden md:block z-50">
+            <div
+              id="search-wrapper"
+              class="absolute right-0 mt-2 hidden md:block z-50"
+            >
               <div class="flex items-center bg-white rounded shadow px-2 py-1">
-                <input id="search-input" type="text" placeholder="Search plants..." class="px-2 py-1 w-64 md:w-64 lg:w-80 outline-none text-sm" />
-                <button id="clear-search" class="text-gray-500 hover:text-gray-700 ml-2">&times;</button>
+                <input
+                  id="search-input"
+                  type="text"
+                  placeholder="Search plants..."
+                  class="px-2 py-1 w-64 md:w-64 lg:w-80 outline-none text-sm"
+                />
+                <button
+                  id="clear-search"
+                  class="text-gray-500 hover:text-gray-700 ml-2"
+                >
+                  &times;
+                </button>
               </div>
               <!-- Live search results dropdown - positioned below input -->
-              <div id="search-results" class="absolute right-0 top-full mt-1 w-72 bg-white rounded shadow-lg max-h-64 overflow-y-auto hidden z-50"></div>
+              <div
+                id="search-results"
+                class="absolute right-0 top-full mt-1 w-72 bg-white rounded shadow-lg max-h-64 overflow-y-auto hidden z-50"
+              ></div>
             </div>
           </div>
 
           <!-- Mobile search modal (small screens) -->
-          <div id="mobile-search-modal" class="fixed inset-0 bg-white z-50 p-4 hidden md:hidden flex flex-col">
+          <div
+            id="mobile-search-modal"
+            class="fixed inset-0 bg-white z-50 p-4 hidden md:hidden flex flex-col"
+          >
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold text-green-800">Search Plants</h3>
-              <button id="mobile-search-close" class="text-gray-600 hover:text-gray-800">
+              <h3 class="text-lg font-semibold text-green-800">
+                Search Plants
+              </h3>
+              <button
+                id="mobile-search-close"
+                class="text-gray-600 hover:text-gray-800"
+              >
                 <i class="fas fa-times text-xl"></i>
               </button>
             </div>
             <div class="mb-4">
-              <input id="mobile-search-input" type="search" placeholder="Search plants, e.g. fern, succulent, <500" class="w-full px-4 py-3 border rounded-md outline-none" />
+              <input
+                id="mobile-search-input"
+                type="search"
+                placeholder="Search plants, e.g. fern, succulent, <500"
+                class="w-full px-4 py-3 border rounded-md outline-none"
+              />
             </div>
             <!-- Mobile search results dropdown -->
-            <div id="mobile-search-results" class="flex-1 border rounded-md bg-gray-50 overflow-y-auto hidden mb-4"></div>
+            <div
+              id="mobile-search-results"
+              class="flex-1 border rounded-md bg-gray-50 overflow-y-auto hidden mb-4"
+            ></div>
             <div class="text-right">
-              <button id="mobile-search-clear" class="px-4 py-2 bg-gray-200 rounded">Clear</button>
+              <button
+                id="mobile-search-clear"
+                class="px-4 py-2 bg-gray-200 rounded"
+              >
+                Clear
+              </button>
             </div>
           </div>
 
@@ -422,7 +488,6 @@
         </div>
       </div>
     </header>
-
     <!-- Login/Signup Modal -->
     <div
       id="auth-modal"
@@ -1692,7 +1757,8 @@
           class="border-t border-green-800 mt-8 pt-8 text-center text-green-400"
         >
           <p>
-            &copy; 2023 GreenLeaf Plant Ordering System. All rights reserved.
+            &copy; <span id="year"></span> GreenLeaf Plant Ordering System. All
+            rights reserved.
           </p>
         </div>
       </div>
@@ -1749,7 +1815,7 @@
         auth = firebase.auth();
         console.log("Firebase initialized successfully", {
           databaseURL: firebaseConfig.databaseURL,
-          projectId: firebaseConfig.projectId
+          projectId: firebaseConfig.projectId,
         });
       } catch (error) {
         console.error("Firebase initialization error:", error);
@@ -1994,7 +2060,11 @@
 
       // Normalize string (remove diacritics) for reliable matching
       function normalizeString(s) {
-        return (s || "").toString().normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+        return (s || "")
+          .toString()
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .toLowerCase();
       }
 
       // Parse price value to a number (handles strings like "₱1,500" or "1,500")
@@ -2043,7 +2113,11 @@
         }
 
         // Text match: all textTokens must appear in name/description/category
-        const hay = normalizeString(`${plant.name || ""} ${plant.description || ""} ${plant.category || ""}`);
+        const hay = normalizeString(
+          `${plant.name || ""} ${plant.description || ""} ${
+            plant.category || ""
+          }`
+        );
         for (const tk of textTokens) {
           const nt = normalizeString(tk);
           if (!hay.includes(nt)) return false;
@@ -2055,13 +2129,23 @@
       // Highlight matching tokens in a text using currentSearchQuery
       function highlightText(text) {
         if (!currentSearchQuery) return escapeHtml(text || "");
-        const tokens = currentSearchQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
+        const tokens = currentSearchQuery
+          .trim()
+          .toLowerCase()
+          .split(/\s+/)
+          .filter(Boolean);
         let out = escapeHtml(text || "");
         tokens.forEach((t) => {
           // skip numeric tokens
           if (/^<?\s*\d|^>\s*\d|^\d+-\d+$/.test(t)) return;
-          const re = new RegExp(t.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&"), "ig");
-          out = out.replace(re, (match) => `<mark class=\"bg-yellow-200\">${match}</mark>`);
+          const re = new RegExp(
+            t.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&"),
+            "ig"
+          );
+          out = out.replace(
+            re,
+            (match) => `<mark class=\"bg-yellow-200\">${match}</mark>`
+          );
         });
         return out;
       }
@@ -2075,8 +2159,12 @@
         }
         container.innerHTML = "";
         const ids = Object.keys(results || {});
-        console.debug("renderMobileSearchResults: found", ids.length, "results");
-        
+        console.debug(
+          "renderMobileSearchResults: found",
+          ids.length,
+          "results"
+        );
+
         if (ids.length === 0) {
           container.classList.add("hidden");
           return;
@@ -2087,27 +2175,43 @@
           const isOutOfStock = p.stock === 0;
           const stockStatus = getStockStatus(p.stock);
           const stockText = getStockText(p.stock);
-          
+          const isInWishlist = wishlistData && wishlistData[id];
+
           const item = document.createElement("div");
-          item.className = "bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition border border-gray-200 m-2";
+          item.className =
+            "bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition border border-gray-200 m-2";
           item.innerHTML = `
-            <div class="h-40 bg-cover bg-center" style="background-image: url('${escapeHtml(p.image || '')}');"></div>
+            <div class="h-40 bg-cover bg-center" style="background-image: url('${escapeHtml(
+              p.image || ""
+            )}');"></div>
             <div class="p-3">
-              <h3 class="font-bold text-sm text-green-800 mb-1 truncate">${highlightText(p.name || '')}</h3>
+              <h3 class="font-bold text-sm text-green-800 mb-1 truncate">${highlightText(
+                p.name || ""
+              )}</h3>
               <p class="text-xs ${stockStatus} mb-2">${stockText}</p>
-              <div class="flex justify-between items-center">
-                <span class="font-bold text-green-700 text-sm">₱${parsePrice(p.price).toLocaleString()}</span>
-                <button class="mobile-search-add-btn bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}" 
+              <div class="search-result-actions">
+                <button class="mobile-search-add-btn bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition ${
+                  isOutOfStock ? "opacity-50 cursor-not-allowed" : ""
+                }" 
                   data-plant-id="${id}"
-                  ${isOutOfStock ? 'disabled' : ''}
+                  ${isOutOfStock ? "disabled" : ""}
                 >
-                  <i class="fas fa-cart-plus mr-1"></i>${isOutOfStock ? 'Out' : 'Add'}
+                  <i class="fas fa-cart-plus mr-1"></i>${
+                    isOutOfStock ? "Out" : "Add"
+                  }
+                </button>
+                <button class="mobile-search-wishlist-btn wishlist-small-btn ${
+                  isInWishlist ? "active" : ""
+                }" data-plant-id="${id}">
+                  <i class="${
+                    isInWishlist ? "fas" : "far"
+                  } fa-heart mr-1"></i>Wish
                 </button>
               </div>
             </div>
           `;
-          
-          const addBtn = item.querySelector('.mobile-search-add-btn');
+
+          const addBtn = item.querySelector(".mobile-search-add-btn");
           if (addBtn && !isOutOfStock) {
             addBtn.addEventListener("click", function (e) {
               e.stopPropagation();
@@ -2116,7 +2220,17 @@
               addToCart(plantId);
             });
           }
-          
+
+          const wishlistBtn = item.querySelector(".mobile-search-wishlist-btn");
+          if (wishlistBtn) {
+            wishlistBtn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const plantId = this.getAttribute("data-plant-id");
+              console.debug("Mobile search Wishlist clicked for", plantId);
+              toggleWishlist(plantId, this);
+            });
+          }
+
           container.appendChild(item);
         });
 
@@ -2138,31 +2252,47 @@
         ids.slice(0, 8).forEach((id) => {
           const p = results[id];
           const item = document.createElement("div");
-          item.className = "bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition border border-gray-200 m-2";
-          
+          item.className =
+            "bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition border border-gray-200 m-2";
+
           const isOutOfStock = p.stock === 0;
           const stockStatus = getStockStatus(p.stock);
           const stockText = getStockText(p.stock);
-          
+          const isInWishlist = wishlistData && wishlistData[id];
+
           item.innerHTML = `
-            <div class="h-32 bg-cover bg-center" style="background-image: url('${escapeHtml(p.image || '')}');"></div>
+            <div class="h-32 bg-cover bg-center" style="background-image: url('${escapeHtml(
+              p.image || ""
+            )}');"></div>
             <div class="p-3">
-              <h3 class="font-bold text-sm text-green-800 mb-1 truncate">${highlightText(p.name || '')}</h3>
+              <h3 class="font-bold text-sm text-green-800 mb-1 truncate">${highlightText(
+                p.name || ""
+              )}</h3>
               <p class="text-xs ${stockStatus} mb-2">${stockText}</p>
-              <div class="flex justify-between items-center">
-                <span class="font-bold text-green-700 text-sm">₱${parsePrice(p.price).toLocaleString()}</span>
-                <button class="search-result-add-btn bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}" 
+              <div class="search-result-actions">
+                <button class="search-result-add-btn bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition ${
+                  isOutOfStock ? "opacity-50 cursor-not-allowed" : ""
+                }" 
                   data-plant-id="${id}"
-                  ${isOutOfStock ? 'disabled' : ''}
+                  ${isOutOfStock ? "disabled" : ""}
                 >
-                  <i class="fas fa-cart-plus mr-1"></i>${isOutOfStock ? 'Out' : 'Add'}
+                  <i class="fas fa-cart-plus mr-1"></i>${
+                    isOutOfStock ? "Out" : "Add"
+                  }
+                </button>
+                <button class="search-result-wishlist-btn wishlist-small-btn ${
+                  isInWishlist ? "active" : ""
+                }" data-plant-id="${id}">
+                  <i class="${
+                    isInWishlist ? "fas" : "far"
+                  } fa-heart mr-1"></i>Wish
                 </button>
               </div>
             </div>
           `;
-          
+
           // Delegate click to add button
-          const addBtn = item.querySelector('.search-result-add-btn');
+          const addBtn = item.querySelector(".search-result-add-btn");
           if (addBtn && !isOutOfStock) {
             addBtn.addEventListener("click", function (e) {
               e.stopPropagation();
@@ -2172,21 +2302,36 @@
               // Keep dropdown open so user can add multiple items
             });
           }
-          
+
+          // Delegate click to wishlist button
+          const wishlistBtn = item.querySelector(".search-result-wishlist-btn");
+          if (wishlistBtn) {
+            wishlistBtn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const plantId = this.getAttribute("data-plant-id");
+              console.debug("Search result Wishlist clicked for", plantId);
+              toggleWishlist(plantId, this);
+            });
+          }
+
           // Clicking elsewhere scrolls to product view
           item.addEventListener("click", function (e) {
-            if (e.target.closest('.search-result-add-btn')) return; // Already handled
+            if (
+              e.target.closest(".search-result-add-btn") ||
+              e.target.closest(".search-result-wishlist-btn")
+            )
+              return; // Already handled
             // Navigate to product in page
             const el = document.getElementById(`plant-${id}`);
             if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              el.scrollIntoView({ behavior: "smooth", block: "center" });
             }
-            container.classList.add('hidden');
-            if (searchWrapper) searchWrapper.classList.add('hidden');
+            container.classList.add("hidden");
+            if (searchWrapper) searchWrapper.classList.add("hidden");
             // Also populate main search results
-            searchPlants(p.name || '');
+            searchPlants(p.name || "");
           });
-          
+
           container.appendChild(item);
         });
 
@@ -2196,7 +2341,9 @@
       // Search plants by name, description or category and update displays
       function searchPlants(query) {
         const allContainer = document.getElementById("all-plants-container");
-        const featuredContainer = document.getElementById("featured-plants-container");
+        const featuredContainer = document.getElementById(
+          "featured-plants-container"
+        );
 
         currentSearchQuery = (query || "").trim();
 
@@ -2229,7 +2376,12 @@
 
         // Debug logging to help diagnose search issues
         try {
-          console.debug("searchPlants() query=", currentSearchQuery, "matches=", Object.keys(results).length);
+          console.debug(
+            "searchPlants() query=",
+            currentSearchQuery,
+            "matches=",
+            Object.keys(results).length
+          );
         } catch (e) {
           // ignore in environments where console may be removed
         }
@@ -2238,14 +2390,16 @@
         try {
           renderSearchResults(results);
         } catch (err) {
-          console.error('renderSearchResults failed', err);
+          console.error("renderSearchResults failed", err);
         }
 
         if (Object.keys(results).length === 0) {
           allContainer.innerHTML = `
             <div class="text-center py-8 col-span-full">
               <i class="fas fa-search text-gray-300 text-4xl mb-4"></i>
-              <p class="text-gray-600">No plants matched "${escapeHtml(currentSearchQuery)}"</p>
+              <p class="text-gray-600">No plants matched "${escapeHtml(
+                currentSearchQuery
+              )}"</p>
             </div>
           `;
           featuredContainer.innerHTML = "";
@@ -2259,12 +2413,14 @@
         for (const id in results) {
           if (results[id].featured) featuredMatches[id] = results[id];
         }
-        displayFeaturedPlants(Object.keys(featuredMatches).length ? featuredMatches : results);
+        displayFeaturedPlants(
+          Object.keys(featuredMatches).length ? featuredMatches : results
+        );
       }
 
       // Return array of match entries [{id, plant}] up to `limit`
       function getSearchMatches(query, limit = 6) {
-        const q = (query || '').trim();
+        const q = (query || "").trim();
         if (!q) return [];
         if (!plantsData) {
           console.warn("getSearchMatches: plantsData is empty");
@@ -2272,8 +2428,13 @@
         }
         const matches = [];
         const plantCount = Object.keys(plantsData).length;
-        console.debug("getSearchMatches: searching in", plantCount, "plants for query:", q);
-        
+        console.debug(
+          "getSearchMatches: searching in",
+          plantCount,
+          "plants for query:",
+          q
+        );
+
         for (const id in plantsData) {
           const p = plantsData[id];
           if (plantMatchesQuery(p, q)) {
@@ -2287,59 +2448,97 @@
 
       // Render live search dropdown under the inline search input
       function renderLiveResults(query) {
-        const container = document.getElementById('search-results');
+        const container = document.getElementById("search-results");
         if (!container) return;
-        container.innerHTML = '';
+        container.innerHTML = "";
         const matches = getSearchMatches(query, 6);
         if (!matches || matches.length === 0) {
-          container.classList.add('hidden');
+          container.classList.add("hidden");
           return;
         }
 
         matches.forEach(({ id, plant }) => {
-          const item = document.createElement('div');
-          item.className = 'search-item flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer';
-          item.setAttribute('data-plant-id', id);
+          const isInWishlist = wishlistData && wishlistData[id];
+
+          const item = document.createElement("div");
+          item.className =
+            "search-item flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer";
+          item.setAttribute("data-plant-id", id);
           item.innerHTML = `
-            <img src="${escapeHtml(plant.image || '')}" class="w-12 h-12 object-cover rounded" />
+            <img src="${escapeHtml(
+              plant.image || ""
+            )}" class="w-12 h-12 object-cover rounded" />
             <div class="flex-1 min-w-0">
-              <div class="text-sm font-medium text-green-800">${highlightText(plant.name)}</div>
-              <div class="text-xs text-gray-500 truncate">₱${parsePrice(plant.price).toLocaleString()}</div>
+              <div class="text-sm font-medium text-green-800">${highlightText(
+                plant.name
+              )}</div>
+              <div class="text-xs text-gray-500 truncate">₱${parsePrice(
+                plant.price
+              ).toLocaleString()}</div>
             </div>
-            <button class="add-result-to-cart ml-2 bg-green-600 text-white text-sm px-3 py-1 rounded" data-plant-id="${id}">Add</button>
+            <div class="flex gap-1">
+              <button class="add-result-to-cart ml-2 bg-green-600 text-white text-sm px-3 py-1 rounded" data-plant-id="${id}">Add</button>
+              <button class="add-result-to-wishlist wishlist-small-btn ${
+                isInWishlist ? "active" : ""
+              }" data-plant-id="${id}">
+                <i class="${isInWishlist ? "fas" : "far"} fa-heart"></i>
+              </button>
+            </div>
           `;
+
           // Click on item opens product or adds to cart
-          item.addEventListener('click', (ev) => {
+          item.addEventListener("click", (ev) => {
             // avoid double-handling when clicking the Add button inside
-            if (ev.target.closest('.add-result-to-cart')) return;
-            const pid = item.getAttribute('data-plant-id');
+            if (
+              ev.target.closest(".add-result-to-cart") ||
+              ev.target.closest(".add-result-to-wishlist")
+            )
+              return;
+            const pid = item.getAttribute("data-plant-id");
             // perform a full search to show results page as well
             searchPlants(pid);
-            container.classList.add('hidden');
+            container.classList.add("hidden");
           });
 
           // Add button inside item
-          item.querySelectorAll('.add-result-to-cart').forEach((btn) => {
-            btn.addEventListener('click', (ev) => {
+          item.querySelectorAll(".add-result-to-cart").forEach((btn) => {
+            btn.addEventListener("click", (ev) => {
               ev.stopPropagation();
-              const pid = btn.getAttribute('data-plant-id');
+              const pid = btn.getAttribute("data-plant-id");
               // attempt to add to cart
-              console.debug('Live result addToCart', pid);
+              console.debug("Live result addToCart", pid);
               addToCart(pid);
-              container.classList.add('hidden');
+              container.classList.add("hidden");
+            });
+          });
+
+          // Wishlist button inside item
+          item.querySelectorAll(".add-result-to-wishlist").forEach((btn) => {
+            btn.addEventListener("click", (ev) => {
+              ev.stopPropagation();
+              const pid = btn.getAttribute("data-plant-id");
+              // attempt to add to wishlist
+              console.debug("Live result toggleWishlist", pid);
+              toggleWishlist(pid, btn);
             });
           });
 
           container.appendChild(item);
         });
 
-        container.classList.remove('hidden');
+        container.classList.remove("hidden");
       }
 
       function escapeHtml(s) {
         s = s == null ? "" : String(s);
         return s.replace(/[&<>\"']/g, function (c) {
-          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          }[c];
         });
       }
 
@@ -2378,7 +2577,10 @@
         }
 
         const userId = getUserId();
-        console.log("📦 loadCart: setting up real-time listeners for userId:", userId);
+        console.log(
+          "📦 loadCart: setting up real-time listeners for userId:",
+          userId
+        );
 
         // Detach previous cart listeners if any
         try {
@@ -2596,7 +2798,9 @@
 
       // Load categories
       function loadCategories() {
-        const categoriesContainer = document.getElementById("categories-container");
+        const categoriesContainer = document.getElementById(
+          "categories-container"
+        );
 
         if (!database) {
           console.error("Database not initialized: cannot load categories");
@@ -2673,7 +2877,7 @@
       }
 
       // Diagnostic function for Firebase connection
-      window.diagnoseFirebase = function() {
+      window.diagnoseFirebase = function () {
         console.log("=== FIREBASE DIAGNOSTIC ===");
         console.log("1. Firebase initialized?", !!firebase);
         console.log("2. Database ref?", !!database);
@@ -2681,31 +2885,43 @@
         console.log("4. Config:", {
           projectId: firebaseConfig.projectId,
           databaseURL: firebaseConfig.databaseURL,
-          apiKey: firebaseConfig.apiKey.substring(0, 10) + "..."
+          apiKey: firebaseConfig.apiKey.substring(0, 10) + "...",
         });
-        
+
         if (!database) {
-          console.error("[ERROR] Database is NOT initialized. Firebase init may have failed.");
+          console.error(
+            "[ERROR] Database is NOT initialized. Firebase init may have failed."
+          );
           return;
         }
-        
+
         // Try to read /plants
         console.log("5. Testing /plants read...");
-        database.ref("plants").once("value")
+        database
+          .ref("plants")
+          .once("value")
           .then((snapshot) => {
             const data = snapshot.val();
             if (data) {
-              console.log("[SUCCESS] /plants data found:", Object.keys(data).length, "plants");
+              console.log(
+                "[SUCCESS] /plants data found:",
+                Object.keys(data).length,
+                "plants"
+              );
               console.log("Sample keys:", Object.keys(data).slice(0, 5));
             } else {
               console.warn("[WARNING] /plants exists but is empty or null");
             }
           })
           .catch((error) => {
-            console.error("[ERROR] Error reading /plants:", error.code, error.message);
+            console.error(
+              "[ERROR] Error reading /plants:",
+              error.code,
+              error.message
+            );
           });
       };
-      
+
       // Log diagnostic on page load
       setTimeout(() => {
         console.log("Running Firebase diagnostic after 2 seconds...");
@@ -2713,17 +2929,19 @@
       }, 2000);
 
       // Test function for search - call testSearch("fern") in console
-      window.testSearch = function(query) {
+      window.testSearch = function (query) {
         console.log("=== TEST SEARCH ===");
         console.log("Query:", query);
         console.log("plantsData loaded?", Object.keys(plantsData).length > 0);
         console.log("Number of plants:", Object.keys(plantsData).length);
-        
+
         if (Object.keys(plantsData).length === 0) {
-          console.warn("[WARNING] No plants loaded yet. Wait for page to fully load.");
+          console.warn(
+            "[WARNING] No plants loaded yet. Wait for page to fully load."
+          );
           return;
         }
-        
+
         const matches = [];
         for (const key in plantsData) {
           const plant = plantsData[key];
@@ -2731,7 +2949,7 @@
             matches.push({ id: key, name: plant.name, price: plant.price });
           }
         }
-        
+
         console.log("Matches found:", matches.length);
         console.log("Results:", matches);
         return matches;
@@ -2746,47 +2964,60 @@
 
         const plantsRef = database.ref("plants");
         console.log("loadAllPlants: listening to /plants");
-        
-        plantsRef.on("value", (snapshot) => {
-          const plants = snapshot.val();
-          console.log("loadAllPlants: received data", plants ? Object.keys(plants).length + " plants" : "null");
-          
-          if (plants) {
-            plantsData = plants;
-            displayAllPlants(plants);
-            displayFeaturedPlants(plants);
 
-            // If a search was requested before plants loaded, run it now
-            if (pendingSearchQuery) {
-              const q = pendingSearchQuery;
-              pendingSearchQuery = null;
-              searchPlants(q);
-            }
-          } else {
-            console.warn("loadAllPlants: received null or empty data from Firebase");
-            // Show a message that there are no plants in database
-            const allPlantsContainer = document.getElementById("all-plants-container");
-            if (allPlantsContainer) {
-              allPlantsContainer.innerHTML = `
+        plantsRef.on(
+          "value",
+          (snapshot) => {
+            const plants = snapshot.val();
+            console.log(
+              "loadAllPlants: received data",
+              plants ? Object.keys(plants).length + " plants" : "null"
+            );
+
+            if (plants) {
+              plantsData = plants;
+              displayAllPlants(plants);
+              displayFeaturedPlants(plants);
+
+              // If a search was requested before plants loaded, run it now
+              if (pendingSearchQuery) {
+                const q = pendingSearchQuery;
+                pendingSearchQuery = null;
+                searchPlants(q);
+              }
+            } else {
+              console.warn(
+                "loadAllPlants: received null or empty data from Firebase"
+              );
+              // Show a message that there are no plants in database
+              const allPlantsContainer = document.getElementById(
+                "all-plants-container"
+              );
+              if (allPlantsContainer) {
+                allPlantsContainer.innerHTML = `
                 <div class="text-center py-12 col-span-full">
                   <i class="fas fa-inbox text-gray-300 text-5xl mb-4"></i>
                   <p class="text-gray-600">No plants in database. Please add some plants to Firebase first.</p>
                 </div>
               `;
+              }
             }
-          }
-        }, (error) => {
-          console.error("loadAllPlants: Firebase error:", error);
-          const allPlantsContainer = document.getElementById("all-plants-container");
-          if (allPlantsContainer) {
-            allPlantsContainer.innerHTML = `
+          },
+          (error) => {
+            console.error("loadAllPlants: Firebase error:", error);
+            const allPlantsContainer = document.getElementById(
+              "all-plants-container"
+            );
+            if (allPlantsContainer) {
+              allPlantsContainer.innerHTML = `
               <div class="text-center py-12 col-span-full">
                 <i class="fas fa-exclamation-circle text-red-400 text-5xl mb-4"></i>
                 <p class="text-red-600">Error loading plants: ${error.message}</p>
               </div>
             `;
+            }
           }
-        });
+        );
       }
 
       // Display all plants
@@ -2803,7 +3034,10 @@
           const isInWishlist = wishlistData && wishlistData[key];
 
           // Skip if current search query filters this out
-          if (currentSearchQuery && !plantMatchesQuery(plant, currentSearchQuery)) {
+          if (
+            currentSearchQuery &&
+            !plantMatchesQuery(plant, currentSearchQuery)
+          ) {
             continue;
           }
 
@@ -2823,9 +3057,7 @@
                 <i class="${isInWishlist ? "fas" : "far"} fa-heart text-xl"></i>
               </button>
               <div class="p-6">
-                <h3 class="text-xl font-bold text-green-800 mb-2">${
-                  highlightedName
-                }</h3>
+                <h3 class="text-xl font-bold text-green-800 mb-2">${highlightedName}</h3>
                 <p class="text-gray-600 mb-2 text-sm">${highlightedDesc}</p>
                 <p class="text-sm ${stockStatus} mb-3">${stockText}</p>
                 <div class="flex justify-between items-center">
@@ -2867,7 +3099,10 @@
           if (!plant.featured) continue;
 
           // Skip if current search query filters this out
-          if (currentSearchQuery && !plantMatchesQuery(plant, currentSearchQuery)) {
+          if (
+            currentSearchQuery &&
+            !plantMatchesQuery(plant, currentSearchQuery)
+          ) {
             continue;
           }
 
@@ -2895,9 +3130,7 @@
                   } fa-heart text-xl"></i>
                 </button>
                 <div class="p-6">
-                  <h3 class="text-xl font-bold text-green-800 mb-2">${
-                    highlightedName
-                  }</h3>
+                  <h3 class="text-xl font-bold text-green-800 mb-2">${highlightedName}</h3>
                   <p class="text-gray-600 mb-2">${highlightedDesc}</p>
                   <p class="text-sm ${stockStatus} mb-3">${stockText}</p>
                   <div class="flex justify-between items-center">
@@ -2915,7 +3148,7 @@
                   </div>
                 </div>
               `;
-            featuredContainer.appendChild(plantElement);
+          featuredContainer.appendChild(plantElement);
         }
 
         // Add wishlist event listeners
@@ -2929,7 +3162,11 @@
 
       // Add to cart function
       function addToCart(plantId) {
-        console.debug('✨ addToCart called for', plantId, plantsData[plantId]?.name);
+        console.debug(
+          "✨ addToCart called for",
+          plantId,
+          plantsData[plantId]?.name
+        );
         if (!database) {
           showStockNotification(
             "Database not available. Please refresh the page."
@@ -3015,9 +3252,13 @@
       // Show stock notification
       function showStockNotification(message, type = "error") {
         // Use green notification for success, red for errors
-        const notificationEl = type === "success" ? cartNotification : stockNotification;
-        const messageEl = type === "success" ? cartNotification.querySelector("span") : stockMessage;
-        
+        const notificationEl =
+          type === "success" ? cartNotification : stockNotification;
+        const messageEl =
+          type === "success"
+            ? cartNotification.querySelector("span")
+            : stockMessage;
+
         messageEl.textContent = message;
         notificationEl.classList.remove("opacity-0", "translate-x-full");
         notificationEl.classList.add("opacity-100", "translate-x-0");
@@ -3070,10 +3311,6 @@
               memberSince.textContent = new Date(
                 userData.createdAt
               ).toLocaleDateString();
-
-              // Set customer role
-              accountRole.innerHTML =
-                '<span class="customer-badge">Customer Account</span>';
             }
           });
 
@@ -3578,7 +3815,10 @@
               addressesRef = null;
             }
           } catch (err) {
-            console.warn("Error unsubscribing addresses listeners on logout:", err);
+            console.warn(
+              "Error unsubscribing addresses listeners on logout:",
+              err
+            );
           }
 
           savedAddresses = {};
@@ -3591,7 +3831,10 @@
               wishlistRef = null;
             }
           } catch (err) {
-            console.warn("Error unsubscribing wishlist listeners on logout:", err);
+            console.warn(
+              "Error unsubscribing wishlist listeners on logout:",
+              err
+            );
           }
 
           wishlistData = {};
@@ -3619,7 +3862,8 @@
         // Attach granular listeners for real-time add/change/remove
         wishlistRef.on("child_added", (snap) => {
           wishlistData[snap.key] = snap.val();
-          if (wishlistCount) wishlistCount.textContent = Object.keys(wishlistData).length;
+          if (wishlistCount)
+            wishlistCount.textContent = Object.keys(wishlistData).length;
           if (plantsData) {
             displayAllPlants(plantsData);
             displayFeaturedPlants(plantsData);
@@ -3629,7 +3873,8 @@
 
         wishlistRef.on("child_changed", (snap) => {
           wishlistData[snap.key] = snap.val();
-          if (wishlistCount) wishlistCount.textContent = Object.keys(wishlistData).length;
+          if (wishlistCount)
+            wishlistCount.textContent = Object.keys(wishlistData).length;
           if (plantsData) {
             displayAllPlants(plantsData);
             displayFeaturedPlants(plantsData);
@@ -3639,7 +3884,8 @@
 
         wishlistRef.on("child_removed", (snap) => {
           delete wishlistData[snap.key];
-          if (wishlistCount) wishlistCount.textContent = Object.keys(wishlistData).length;
+          if (wishlistCount)
+            wishlistCount.textContent = Object.keys(wishlistData).length;
           if (plantsData) {
             displayAllPlants(plantsData);
             displayFeaturedPlants(plantsData);
@@ -3651,7 +3897,10 @@
         wishlistRef.once("value").then((snapshot) => {
           const wishlist = snapshot.val();
           wishlistData = wishlist || {};
-          if (wishlistCount) wishlistCount.textContent = wishlist ? Object.keys(wishlist).length : 0;
+          if (wishlistCount)
+            wishlistCount.textContent = wishlist
+              ? Object.keys(wishlist).length
+              : 0;
           if (plantsData) {
             displayAllPlants(plantsData);
             displayFeaturedPlants(plantsData);
@@ -3728,8 +3977,10 @@
             addedAt: Date.now(),
           })
           .then(() => {
-            button.innerHTML = '<i class="fas fa-heart text-xl"></i>';
-            button.classList.add("active");
+            if (button) {
+              button.innerHTML = '<i class="fas fa-heart text-xl"></i>';
+              button.classList.add("active");
+            }
             showNotification("Added to wishlist!", "success");
           });
       }
@@ -4663,9 +4914,15 @@
         // Fallback: if plants don't load after 8 seconds, show error
         setTimeout(() => {
           if (Object.keys(plantsData).length === 0) {
-            console.warn("Plants not loaded after 8 seconds, showing error message");
-            const allPlantsContainer = document.getElementById("all-plants-container");
-            const featuredContainer = document.getElementById("featured-plants-container");
+            console.warn(
+              "Plants not loaded after 8 seconds, showing error message"
+            );
+            const allPlantsContainer = document.getElementById(
+              "all-plants-container"
+            );
+            const featuredContainer = document.getElementById(
+              "featured-plants-container"
+            );
             if (allPlantsContainer) {
               allPlantsContainer.innerHTML = `
                 <div class="text-center py-12 col-span-full">
@@ -4719,10 +4976,15 @@
 
           // Close inline search when clicking outside (only for md+ inline)
           document.addEventListener("click", function (e) {
-            if (searchWrapper && !searchWrapper.classList.contains("hidden") && !searchWrapper.contains(e.target) && e.target !== openSearchBtn) {
+            if (
+              searchWrapper &&
+              !searchWrapper.classList.contains("hidden") &&
+              !searchWrapper.contains(e.target) &&
+              e.target !== openSearchBtn
+            ) {
               searchWrapper.classList.add("hidden");
-              const sr = document.getElementById('search-results');
-              if (sr) sr.classList.add('hidden');
+              const sr = document.getElementById("search-results");
+              if (sr) sr.classList.add("hidden");
             }
           });
 
@@ -4733,8 +4995,8 @@
               if (searchInput) searchInput.value = "";
               if (searchWrapper) searchWrapper.classList.add("hidden");
               // hide live results
-              const sr = document.getElementById('search-results');
-              if (sr) sr.classList.add('hidden');
+              const sr = document.getElementById("search-results");
+              if (sr) sr.classList.add("hidden");
               searchPlants("");
             });
           }
@@ -4750,15 +5012,15 @@
           if (mobileSearchClear) {
             mobileSearchClear.addEventListener("click", function () {
               if (mobileSearchInput) mobileSearchInput.value = "";
-              const msr = document.getElementById('mobile-search-results');
-              if (msr) msr.classList.add('hidden');
+              const msr = document.getElementById("mobile-search-results");
+              if (msr) msr.classList.add("hidden");
               searchPlants("");
             });
           }
 
           // Debounced input handler - run full search and render live dropdown
           const debounced = debounce(function (e) {
-            const q = e.target.value || '';
+            const q = e.target.value || "";
             try {
               renderLiveResults(q);
             } catch (err) {
@@ -4769,7 +5031,7 @@
 
           // Separate debounced handler for mobile that also renders mobile results
           const mobileDebounced = debounce(function (e) {
-            const q = e.target.value || '';
+            const q = e.target.value || "";
             console.debug("mobileDebounced: searching for", q);
             // Compute matches and render mobile results
             const matches = getSearchMatches(q, 12);
@@ -4781,21 +5043,21 @@
             try {
               renderMobileSearchResults(resultsObj);
             } catch (err) {
-              console.error('renderMobileSearchResults failed', err);
+              console.error("renderMobileSearchResults failed", err);
             }
             searchPlants(q);
           }, 250);
 
           if (searchInput) searchInput.addEventListener("input", debounced);
-          if (mobileSearchInput) mobileSearchInput.addEventListener("input", mobileDebounced);
-
+          if (mobileSearchInput)
+            mobileSearchInput.addEventListener("input", mobileDebounced);
 
           // ESC to close inline or mobile
           document.addEventListener("keydown", function (e) {
             if (e.key === "Escape") {
               if (searchWrapper) searchWrapper.classList.add("hidden");
-              const sr = document.getElementById('search-results');
-              if (sr) sr.classList.add('hidden');
+              const sr = document.getElementById("search-results");
+              if (sr) sr.classList.add("hidden");
               if (mobileSearchModal) {
                 mobileSearchModal.classList.add("hidden");
                 document.body.style.overflow = "auto";
@@ -4805,7 +5067,7 @@
             }
           });
         }
-
+        document.getElementById("year").textContent = new Date().getFullYear();
         // Cart button click
         document.getElementById("cart-btn").addEventListener("click", openCart);
 
